@@ -33,7 +33,7 @@ export default function LoginPage() {
       if (data.user.role === "admin") {
         router.push("/admin");
       } else {
-        router.push("/home");
+        router.push("/user/home");
       }
     } catch (error) {
       setMsg("Terjadi kesalahan, coba lagi nanti");
@@ -97,7 +97,7 @@ export default function LoginPage() {
 
           <p className="text-sm text-center mt-5 text-gray-600">
             Don't have an account?{" "}
-            <Link href="/register" className="text-blue-600 font-semibold hover:underline">
+            <Link href="/auth/register" className="text-blue-600 font-semibold hover:underline">
               Register
             </Link>
           </p>

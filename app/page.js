@@ -21,13 +21,13 @@ export default function Home() {
         {/* ✅ Button */}
         <div className="flex gap-3">
           <a
-            href="/login"
+            href="/auth/login"
             className="px-6 py-2 border border-black rounded-full hover:bg-gray-100 text-black transition"
           >
             LOGIN
           </a>
           <a
-            href="/register"
+            href="/auth/register"
             className="px-6 py-2 border border-black rounded-full hover:bg-gray-100 text-black transition"
           >
             REGISTER
@@ -49,7 +49,7 @@ export default function Home() {
           </p>
 
           <a
-            href="/login"
+            href="/auth/login"
             className="inline-block mt-8 border text-blue-600 border-blue-600 px-8 py-3 rounded-full hover:bg-blue-600 hover:text-white transition"
           >
             GET MORE
@@ -105,73 +105,73 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ✅ POPULAR BOOKS */}
- {/* ✅ POPULAR BOOKS */}
-<section id="trending" className="py-20 px-8 md:px-12 max-w-7xl mx-auto">
-  <h2 className="text-4xl font-bold text-blue-600 text-center">
-    Popular Books
-  </h2>
+              {/* ✅ POPULAR BOOKS */}
+        {/* ✅ POPULAR BOOKS */}
+        <section id="trending" className="py-20 px-8 md:px-12 max-w-7xl mx-auto">
+          <h2 className="text-4xl font-bold text-blue-600 text-center">
+            Popular Books
+          </h2>
 
-  <div className="max-w-6xl mx-auto px-4 md:px-8 mt-12">
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-      {[
-        {
-          id: 1,
-          title: "Clean Code",
-          author: "Robert C. Martin",
-          category: "Programming",
-          img: "/5-cm.jpg",
-        },
-        {
-          id: 2,
-          title: "Atomic Habits",
-          author: "James Clear",
-          category: "Self Development",
-          img: "/ayat-ayat-cinta.jpg",
-        },
-        {
-          id: 3,
-          title: "The Psychology of Money",
-          author: "Morgan Housel",
-          category: "Finance",
-          img: "/the-psychology-of-money.jpg",
-        },
-        
+          <div className="max-w-6xl mx-auto px-4 md:px-8 mt-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+              {[
+                {
+                  id: 1,
+                  title: "Clean Code",
+                  author: "Robert C. Martin",
+                  category: "Programming",
+                  img: "/cover/5-cm.jpg",
+                },
+                {
+                  id: 2,
+                  title: "Ayat Ayat Cinta",
+                  author: "James Clear",
+                  category: "Self Development",
+                  img: "/cover/ayat-ayat-cinta.jpg",
+                },
+                {
+                  id: 3,
+                  title: "The Psychology of Money",
+                  author: "Morgan Housel",
+                  category: "Finance",
+                  img: "/cover/the-psychology-of-money.jpg",
+                },
+                
 
-      ].map((book) => (
-        <div
-          key={book.id}
-          className="bg-white border rounded-2xl shadow-sm hover:shadow-xl transition p-4 flex flex-col items-center text-center"
-        >
-          <div className="w-full h-56 flex items-center justify-center mb-4 bg-gray-50 rounded-xl">
-            <img
-              src={book.img || "/placeholder-book.png"}
-              alt={book.title}
-              className="max-h-full object-contain rounded-lg"
-            />
+              ].map((book) => (
+                <div
+                  key={book.id}
+                  className="bg-white border rounded-2xl shadow-sm hover:shadow-xl transition p-4 flex flex-col items-center text-center"
+                >
+                  <div className="w-full h-56 flex items-center justify-center mb-4 bg-gray-50 rounded-xl">
+                    <img
+                      src={book.img || "/placeholder-book.png"}
+                      alt={book.title}
+                      className="max-h-full object-contain rounded-lg"
+                    />
+                  </div>
+
+                  <h3 className="text-xl font-semibold text-blue-600 line-clamp-2">
+                    {book.title}
+                  </h3>
+                  <p className="text-gray-700 text-sm mt-1">
+                    Penulis: {book.author}
+                  </p>
+                  <p className="text-gray-500 text-sm mb-4">
+                    Kategori: {book.category}
+                  </p>
+
+                  <a
+                    href="/auth/register"
+                    className="mt-auto inline-block border border-blue-600 text-blue-600 px-5 py-2 rounded-full hover:bg-blue-600 hover:text-white transition text-sm font-medium"
+                  >
+                    Lihat Detail
+                  </a>
+                </div>
+              ))}
+            </div>
           </div>
-
-          <h3 className="text-xl font-semibold text-blue-600 line-clamp-2">
-            {book.title}
-          </h3>
-          <p className="text-gray-700 text-sm mt-1">
-            Penulis: {book.author}
-          </p>
-          <p className="text-gray-500 text-sm mb-4">
-            Kategori: {book.category}
-          </p>
-
-          <a
-            href="/register"
-            className="mt-auto inline-block border border-blue-600 text-blue-600 px-5 py-2 rounded-full hover:bg-blue-600 hover:text-white transition text-sm font-medium"
-          >
-            Lihat Detail
-          </a>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
+        </section>
 
 
       {/* ✅ TESTIMONIAL */}

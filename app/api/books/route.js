@@ -2,41 +2,64 @@ import { db } from "@/lib/db";
 
 export async function GET() {
   try {
-    // 🔹 Ambil semua buku dari tabel
     const [rows] = await db.query("SELECT * FROM buku");
 
-    // 🔹 Pastikan data ada
-    if (!rows || rows.length === 0) {
-      return new Response(JSON.stringify([]), {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
+    const books = rows.map((book) => {
+      let coverImage = "/placeholder-book.png";
 
-    // 🔹 Bentuk ulang data agar sesuai dengan frontend
-    const books = rows.map((b) => ({
-      id_buku: b.id_buku,
-      judul: b.judul,
-      penulis: b.penulis,
-      penerbit: b.penerbit,
-      tahun: b.tahun,
-      stok: b.stok,
-      coverImage: `/${b.judul.toLowerCase().replace(/ /g, "-")}.jpg`, // otomatis nyambung ke /public
-    }));
+      if (book.cover) {
+        if (book.cover.startsWith("http")) {
+          // jika URL dari Google
+          coverImage = book.cover;
+        } else {
+          // jika file lokal di public/cover
+          coverImage = `/cover/${book.cover}`;
+        }
+      }
 
-    // 🔹 Kirim hasilnya
+      return {
+        id_buku: book.id_buku,
+        judul: book.judul,
+        penulis: book.penulis,
+        penerbit: book.penerbit,
+        tahun: book.tahun,
+        stok: book.stok,
+        kategori: book.kategori,
+        coverImage,
+        cover: book.cover, // tetap simpan mentahan untuk kelola buku
+      };
+    });
+
     return new Response(JSON.stringify(books), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
-  } catch (error) {
-    console.error("❌ DB ERROR:", error);
-    return new Response(
-      JSON.stringify({ error: "Gagal mengambil data buku", detail: String(error) }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      }
+  } catch (err) {
+    console.error(err);
+    return new Response(JSON.stringify({ error: "Gagal mengambil data buku" }), {
+      status: 500,
+    });
+  }
+}
+
+export async function POST(req) {
+  try {
+    const body = await req.json();
+    const { judul, penulis, penerbit, tahun, stok, kategori, cover } = body;
+
+    await db.query(
+      `INSERT INTO buku (judul, penulis, penerbit, tahun, stok, kategori, cover)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      [judul, penulis, penerbit, tahun, stok, kategori, cover]
     );
+
+    return new Response(JSON.stringify({ message: "Buku berhasil ditambahkan!" }), {
+      status: 201,
+    });
+  } catch (err) {
+    console.error(err);
+    return new Response(JSON.stringify({ error: "Gagal menambah buku" }), {
+      status: 500,
+    });
   }
 }

@@ -36,7 +36,7 @@ export default function RegisterPage() {
       if (data.user.role === "admin") {
         router.push("/admin/dashboard");
       } else {
-        router.push("/home");
+        router.push("/user/home");
       }
 
     } catch (err) {
@@ -133,7 +133,7 @@ export default function RegisterPage() {
 
           <p className="text-sm text-center mt-5 text-gray-600">
             Already have an account?{" "}
-            <Link href="/login" className="text-blue-600 font-semibold hover:underline">
+            <Link href="/auth/login" className="text-blue-600 font-semibold hover:underline">
               Login
             </Link>
           </p>
