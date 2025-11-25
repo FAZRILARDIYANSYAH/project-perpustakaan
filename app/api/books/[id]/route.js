@@ -11,12 +11,12 @@ export async function GET(req, context) {
         status: 404,
       });
     }
-
+    
     return new Response(JSON.stringify(rows[0]), {
       status: 200,
     });
   } catch (error) {
-    console.error("❌ Error detail buku:", error);
+    console.error("Error detail buku:", error);
     return new Response(JSON.stringify({ error: "Kesalahan server" }), {
       status: 500,
     });

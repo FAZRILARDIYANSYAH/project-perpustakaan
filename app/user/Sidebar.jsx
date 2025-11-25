@@ -14,13 +14,12 @@ export default function Sidebar({ isOpen, toggleSidebar, role = "user" }) {
           { name: "Dashboard", icon: <Home size={20} />, path: "/admin" },
           { name: "Kelola Buku", icon: <BookOpen size={20} />, path: "/admin/tambah-buku" },
           { name: "Konfirmasi Peminjaman", icon: <CheckCircle size={20} />, path: "/admin/peminjaman" },
-          { name: "Daftar Siswa", icon: <User size={20} />, path: "/admin/users" },
+          
         ]
       : [
-          { name: "Beranda", icon: <Home size={20} />, path: "/user/home" },
+          { name: "Beranda", icon: <Home size={20} />, path: "/user" },
           { name: "Koleksi", icon: <BookOpen size={20} />, path: "/user/koleksi" },
           { name: "Wishlist", icon: <Heart size={20} />, path: "/user/wishlist" },
-          { name: "Riwayat", icon: <History size={20} />, path: "/user/riwayat" },
           { name: "Profil", icon: <User size={20} />, path: "/user/profile" },
         ];
 

@@ -36,7 +36,7 @@ export default function RegisterPage() {
       if (data.user.role === "admin") {
         router.push("/admin/dashboard");
       } else {
-        router.push("/user/home");
+        router.push("/user");
       }
 
     } catch (err) {

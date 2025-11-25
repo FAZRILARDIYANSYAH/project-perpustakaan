@@ -33,7 +33,7 @@ export default function LoginPage() {
       if (data.user.role === "admin") {
         router.push("/admin");
       } else {
-        router.push("/user/home");
+        router.push("/user");
       }
     } catch (error) {
       setMsg("Terjadi kesalahan, coba lagi nanti");
