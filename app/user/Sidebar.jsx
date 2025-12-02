@@ -14,7 +14,6 @@ export default function Sidebar({ isOpen, toggleSidebar, role = "user" }) {
           { name: "Dashboard", icon: <Home size={20} />, path: "/admin" },
           { name: "Kelola Buku", icon: <BookOpen size={20} />, path: "/admin/tambah-buku" },
           { name: "Konfirmasi Peminjaman", icon: <CheckCircle size={20} />, path: "/admin/peminjaman" },
-          
         ]
       : [
           { name: "Beranda", icon: <Home size={20} />, path: "/user" },
@@ -23,9 +22,15 @@ export default function Sidebar({ isOpen, toggleSidebar, role = "user" }) {
           { name: "Profil", icon: <User size={20} />, path: "/user/profile" },
         ];
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    // Hapus localStorage
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+
+    // Panggil API untuk hapus cookie HttpOnly
+    await fetch("/api/logout", { method: "GET" });
+
+    // Redirect
     router.push("/");
   };
 

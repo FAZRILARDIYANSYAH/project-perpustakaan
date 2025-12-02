@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { BookOpen, Clock, CheckCircle, Calendar, User, TrendingUp } from "lucide-react";
 
 export default function AdminPeminjamanPage() {
+  // ------ semua hook harus di paling atas ------
+  const [user, setUser] = useState(null);
   const [peminjamanList, setPeminjamanList] = useState([]);
   const [stats, setStats] = useState({
     diproses: 0,
@@ -11,8 +13,14 @@ export default function AdminPeminjamanPage() {
   });
   const [loading, setLoading] = useState(true);
 
+  // ------ load user (localStorage) ------
   useEffect(() => {
-    setLoading(true);
+    const data = localStorage.getItem("user");
+    if (data) setUser(JSON.parse(data));
+  }, []);
+
+  // ------ load data peminjaman (API) ------
+  useEffect(() => {
     fetch("/api/peminjaman")
       .then((res) => res.json())
       .then((data) => {
@@ -29,6 +37,25 @@ export default function AdminPeminjamanPage() {
     const selesai = data.filter((i) => i.status === "Selesai").length;
     setStats({ diproses, dipinjam, selesai });
   };
+
+  // ------ setelah semua hook, baru conditional return ------
+  if (!user) return null;
+
+  if (user.role !== "admin") {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="text-center p-10 bg-white rounded-3xl shadow-lg border border-red-200">
+          <h1 className="text-5xl font-bold text-red-600 mb-4">403</h1>
+          <p className="text-gray-600 text-lg font-medium">
+            Akses ditolak. Halaman ini hanya untuk Admin.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // ------------------- lanjut render jika admin -------------------
+
 
   const getStatusColor = (status) => {
     switch (status) {

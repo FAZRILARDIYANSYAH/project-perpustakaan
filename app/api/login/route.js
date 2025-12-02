@@ -21,7 +21,6 @@ export async function POST(req) {
 
     const user = rows[0];
 
-    // Cek password
     const cocok = await bcrypt.compare(password, user.password);
     if (!cocok) {
       return NextResponse.json(
@@ -31,14 +30,14 @@ export async function POST(req) {
     }
 
     const token = jwt.sign(
-      { id: user.id, role: user.role },
-      "SUPER_SECRET",
+      { id: user.id, role: user.  role },
+      process.env.JWT_SECRET || "SUPER_SECRET",
       { expiresIn: "1d" }
     );
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       message: "Login berhasil",
-      token,
+      token,                    // ⬅ WAJIB! untuk frontend
       user: {
         id: user.id,
         nama: user.nama,
@@ -47,6 +46,17 @@ export async function POST(req) {
         role: user.role,
       },
     });
+
+    // Simpan token di cookie
+    response.cookies.set("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 60 * 60 * 24,
+      path: "/",
+    });
+
+    return response;
   } catch (err) {
     console.error("ERROR LOGIN:", err);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
